@@ -1,0 +1,25 @@
+{
+  "description": "Production cost envelope guardrails for winner configuration",
+  "version": "1.0",
+  "baseline_costs": {
+    "commission_per_lot_usd": 2.5,
+    "spread_pips_typical": 0.2,
+    "slippage_bps": 0.0
+  },
+  "envelope_limits": {
+    "max_commission_per_lot_usd": 5.0,
+    "max_commission_multiplier": 2.0,
+    "max_spread_pips": 0.5,
+    "max_slippage_bps": 0.0
+  },
+  "breach_actions": {
+    "primary_action": "NO_TRADE",
+    "secondary_action": "FLATTEN",
+    "log_level": "ERROR"
+  },
+  "rationale": {
+    "max_commission": "Cost stress test shows 2x baseline (5.0 USD) is max viable",
+    "max_spread": "Spread >0.5 pips causes performance degradation (91% return at 2x, margin calls at higher)",
+    "breach_policy": "NO_TRADE prevents entering positions under unfavorable costs; FLATTEN closes existing if breached"
+  }
+}

@@ -1,0 +1,91 @@
+# =============================================================================
+# AtlasFX MVP .gitignore — cleaned 2026-02-19
+# =============================================================================
+
+# ---- Data (parquets, tick data, normalization artifacts) --------------------
+/data/
+
+# ---- Dukascopy extraction temp files ----------------------------------------
+/download/
+extraction_2025_log.txt
+
+# ---- Models (trained weights, checkpoints) ----------------------------------
+models/
+checkpoints/
+
+# ---- Training outputs (logs, results, reports) ------------------------------
+logs/
+results/
+reports/
+
+# ---- Archive (historical experiment docs, old baselines/models) -------------
+archive/
+
+# ---- Python / virtual environment -------------------------------------------
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.eggs/
+build/
+dist/
+*.egg-info/
+src/*.egg-info/
+
+# ---- IDE / editor -----------------------------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ---- Testing / coverage ----------------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+coverage.xml
+*.cover
+tests/fixtures/e2e_test_output/
+tests/fixtures/e2e_test_output_*/
+
+# ---- Jupyter Notebooks ------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+# ---- ML experiment tracking -------------------------------------------------
+/experiments/*
+!/experiments/.gitkeep
+mlruns/
+wandb/
+
+# ---- DVC --------------------------------------------------------------------
+.dvc/cache
+.dvc/tmp
+
+# ---- Environment variables and secrets -------------------------------------
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# ---- Documentation builds ---------------------------------------------------
+docs/_build/
+site/
+
+# ---- Temporary / generated files --------------------------------------------
+*.tmp
+*.temp
+*.log
+exports/
