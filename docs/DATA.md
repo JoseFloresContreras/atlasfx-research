@@ -4,7 +4,7 @@
 
 This document describes the data pipeline used in the AtlasFX project: how raw tick data is transformed into normalized feature matrices consumed by the RL training environment, and how out-of-sample evaluation data is processed using frozen statistics to prevent information leakage.
 
-The public repository contains the pipeline code, configuration files, frozen normalization artifacts, and documentation needed to reproduce the workflow. Raw tick datasets are not redistributed — they are large and can be obtained independently from historical forex data providers.
+The public repository contains the core source code (environments, models, training, evaluation, risk management) and documentation describing the pipeline methodology. Raw tick datasets, processed Parquet files, pipeline YAML configs, and frozen normalization artifacts are not redistributed — they are either large or were part of the working research environment. The pipeline design is documented here for transparency and reproducibility.
 
 ---
 
@@ -100,7 +100,7 @@ All market features observed by the agent at decision time $T$ are computed from
 
 ### 6.2 Split Integrity
 
-An early pipeline version produced randomized (non-chronological) splits. This was identified and corrected via a dedicated config (`pipeline_regenerate_split_only.yaml`) that regenerated all splits in strict chronological order with temporal assertions.
+An early pipeline version produced randomized (non-chronological) splits. This was identified and corrected via a dedicated pipeline configuration that regenerated all splits in strict chronological order with temporal assertions.
 
 ### 6.3 Train-Only Statistics
 
@@ -110,7 +110,7 @@ An early pipeline version produced randomized (non-chronological) splits. This w
 
 ### 6.4 Frozen Artifact Reuse
 
-The OOS 2025 preparation script replicates the exact same processing order as the training pipeline but loads frozen winsorization bounds and normalization scalers rather than fitting new ones. A dedicated test suite (`tests/test_frozen_normalization.py`) validates that:
+The OOS 2025 preparation script replicates the exact same processing order as the training pipeline but loads frozen winsorization bounds and normalization scalers rather than fitting new ones. In the working research environment, a dedicated test suite validated that:
 
 1. Frozen statistics are loaded, not recomputed.
 2. Output matches manual z-score using the frozen mean/std.
@@ -127,7 +127,7 @@ Normalization is applied only to `[Feature]`-prefixed columns. The primary metho
 
 ### 7.2 Saved Artifacts
 
-Three frozen artifact files are stored in `data/normalization_artifacts/`:
+Three frozen artifact files were used in the research pipeline:
 
 | File | Contents |
 |---|---|
@@ -135,7 +135,7 @@ Three frozen artifact files are stored in `data/normalization_artifacts/`:
 | `scalers.pkl` | Fitted scaler objects (from training data only) |
 | `winsor_limits.json` | Winsorization bounds (from training data only) |
 
-These artifacts are versioned with the repository and are sufficient to normalize new data without access to the original training set.
+These artifacts are sufficient to normalize new data without access to the original training set. They are not included in the public repository but are described here for reproducibility.
 
 
 ---
@@ -145,12 +145,13 @@ These artifacts are versioned with the repository and are sufficient to normaliz
 ### Included
 
 - Core source code (`src/atlasfx/`): environments, models, training, evaluation, risk management
-- Frozen normalization artifacts (`data/normalization_artifacts/`)
-- This documentation\n
+- Production cost envelope configurations (`config/`)
+- Research documentation and evidence trail (`docs/`)
+
 ### Not Included
 
 - **Raw tick data** (several tens of GB). Historical tick-by-tick forex data can be obtained from providers of publicly available historical forex tick feeds. The pipeline expects one CSV per trading day per pair, in the `timestamp, askPrice, bidPrice, askVolume, bidVolume` CSV format.
-- **Processed Parquet files** (train/val/test splits). These are deterministically reproducible from raw data using the provided pipeline code and configs.
+- **Processed Parquet files** (train/val/test splits). These are deterministically reproducible from raw data using the pipeline code and YAML configs used in the research environment.
 - **Large model checkpoints.** See the training documentation for checkpoint format and storage.
 
 The repository is structured so that a user with access to equivalent raw tick data can reproduce the entire pipeline end-to-end.
@@ -161,8 +162,8 @@ The repository is structured so that a user with access to equivalent raw tick d
 ## 9. Reproducibility Notes
 
 - **Deterministic pipeline**: Fixed processing order, no random sampling in aggregation or featurization. The only stochastic element is the RL training seed, not the data pipeline.
-- **YAML-driven configuration**: All pipeline parameters (symbols, time windows, split ratios, winsorization percentiles, normalization strategies, featurizer windows) are specified in version-controlled YAML files.
-- **Schema validation**: Input data is validated against a schema (`configs/schema.yaml`) that enforces column types, value ranges, and cross-column constraints (e.g., ask ≥ bid) at each pipeline stage.
+- **YAML-driven configuration**: All pipeline parameters (symbols, time windows, split ratios, winsorization percentiles, normalization strategies, featurizer windows) were specified in version-controlled YAML files in the working research environment.
+- **Schema validation**: Input data was validated against a schema that enforces column types, value ranges, and cross-column constraints (e.g., ask ≥ bid) at each pipeline stage.
 - **Frozen artifacts for forward application**: New data (e.g., OOS 2025) is processed using saved training-period statistics, ensuring exact reproducibility of the normalization step without access to the original training split.
 - **Execution**: Phase 1 (ticks → klines) and Phase 2 (klines → features) are run as separate pipeline commands with YAML configuration.
 
