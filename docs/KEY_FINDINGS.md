@@ -32,8 +32,7 @@ and still produce convincingly realistic-looking backtest results. Independent
 code audits of the observation pipeline are essential in any RL-for-finance
 project.
 
-**Sources:** E046_OOS_2025_AUDIT.md, OOS_2025_AUDIT.md, OOS_2025_RESULTS.md,
-docs/SAC_EXPERIMENT_LOG.md (E045, E046)
+**Sources:** evidence/E046_OOS_2025_AUDIT.md, SAC_EXPERIMENT_LOG.md (E045, E046)
 
 ---
 
@@ -53,7 +52,7 @@ within the noise band of the cost assumptions.
 moderate gross edge is overwhelmed by realistic execution costs. This is a
 structural constraint, not a tuning problem.
 
-**Sources:** BASELINE_B01_V2b_s42.md, SLIPPAGE_SENSITIVITY_ANALYSIS.md
+**Sources:** evidence/SLIPPAGE_SENSITIVITY_ANALYSIS.md, COST_MODEL.md
 
 ---
 
@@ -74,7 +73,7 @@ analysis, where exit slippage impact had been overstated by approximately 2×.
 analysis pipeline. Canonical evaluation frameworks with explicit mode isolation
 are necessary to catch them.
 
-**Sources:** CANON_EVAL_V2.md
+**Sources:** evidence/CANON_EVAL_V2.md
 
 ---
 
@@ -95,7 +94,7 @@ band of the cost assumptions.
 being at the extreme low end of realistic estimates is not deployable. This
 finding sets a concrete, falsifiable execution threshold.
 
-**Sources:** SLIPPAGE_SENSITIVITY_ANALYSIS.md, BASELINE_B01_V2b_s42.md
+**Sources:** evidence/SLIPPAGE_SENSITIVITY_ANALYSIS.md, COST_MODEL.md
 
 ---
 
@@ -115,8 +114,7 @@ of 6 seed–config combinations showed positive Sharpe on held-out 2025 data.
 best-seed performance without multi-seed statistics overstates the true
 distribution and should be treated as anecdotal, not as robust evidence.
 
-**Sources:** docs/SAC_EXPERIMENT_LOG.md (E044),
-docs/SECTION_D_RL_TRAINING_STABILITY.md
+**Sources:** SAC_EXPERIMENT_LOG.md (E044)
 
 ---
 
@@ -137,7 +135,7 @@ that was never consulted during development. This project introduced OOS 2025
 after all configs were locked to partially mitigate the issue, but the sample was
 too small for definitive conclusions.
 
-**Sources:** docs/SECTION_D_RL_TRAINING_STABILITY.md, docs/SAC_EXPERIMENT_LOG.md
+**Sources:** SAC_EXPERIMENT_LOG.md
 
 ---
 
@@ -158,7 +156,7 @@ overfitting in trading systems. This finding provides concrete OOS evidence that
 hourly EV structure in forex is non-stationary and cannot be relied upon for trade
 selection.
 
-**Sources:** CANON_EVAL_V2.md (Tasks 3–4)
+**Sources:** evidence/CANON_EVAL_V2.md (Tasks 3–4)
 
 ---
 
@@ -181,7 +179,7 @@ irreproducible, and multiple simultaneous drifts make root-cause isolation
 extremely difficult. Systematic cataloging before continuing experimentation
 prevented an indefinite cycle of unexplainable failures.
 
-**Sources:** docs/SAC_EXPERIMENT_LOG.md (E027–E034)
+**Sources:** SAC_EXPERIMENT_LOG.md (E027–E034)
 
 ---
 
@@ -202,7 +200,7 @@ reliable confidence signal. The agent's alpha was embedded in *when* it traded,
 not in *how much* it wanted to trade. This has implications for any RL system
 where action scale is used as a proxy for model certainty.
 
-**Sources:** SLIPPAGE_SENSITIVITY_ANALYSIS.md (Task 4)
+**Sources:** evidence/SLIPPAGE_SENSITIVITY_ANALYSIS.md (Task 4)
 
 ---
 
@@ -222,7 +220,7 @@ expected to overcome the structural cost barrier at 1-minute resolution.
 outcome. Recognizing when a hypothesis has been adequately tested — and accepting
 a negative result — is as important as any positive finding.
 
-**Sources:** e052_1m_sniper_v2_report.md, docs/SAC_EXPERIMENT_LOG.md
+**Sources:** evidence/E052_SNIPER_V2_REPORT.md, SAC_EXPERIMENT_LOG.md
 
 ---
 

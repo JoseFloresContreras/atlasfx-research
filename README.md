@@ -75,8 +75,7 @@ This is not a polished success story. It is a technically serious research recor
 atlasfx-research/
 ├── src/atlasfx/              # Core package: environments, models, evaluation, training, risk
 ├── config/                   # Production cost envelope configs
-├── data/                     # Frozen normalization artifacts
-├── docs/                     # Public research documentation and evidence trail
+├── docs/                     # Research documentation, evidence trail, and experiment log
 ├── scripts/                  # Training, evaluation, and canonical eval scripts
 ├── tests/                    # Unit and integration tests
 ├── pyproject.toml
