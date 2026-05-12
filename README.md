@@ -4,7 +4,7 @@
 
 ## Summary
 
-AtlasFX is a multi-month applied research project that investigated whether a Soft Actor-Critic (SAC) reinforcement learning agent could profitably trade short-term forex under realistic execution costs.
+AtlasFX is a research project that investigated whether a Soft Actor-Critic (SAC) reinforcement learning agent could profitably trade short-term forex under realistic execution costs.
 
 The final conclusion is **no**. Under the corrected evaluation framework, the project found signs of gross trading signal, but not a trading edge that survives commissions, spread, and slippage robustly enough to support a profitability claim. The repository is therefore presented not as a trading product, but as a documented research program in hypothesis testing, leakage prevention, reproducibility, and cost-aware evaluation.
 
